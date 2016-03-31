@@ -1,0 +1,26 @@
+{% extends "index.twig" %}
+
+{% block content %}
+<section class="content-wrapper main-content clear-fix">
+    <hgroup class="title">
+        <h1>Reservation</h1>
+        <h2>Delete</h2>
+    </hgroup>
+    <h3>Are you sure you want to delete this?</h3>
+    <fieldset>
+        <div>
+            <span class="label">Reservation details</span>
+        </div>
+        <div>
+            {{ reservation.details }}
+        </div>
+    </fieldset>
+    <form method="post" action="/reservation/delete">
+        <input type="hidden" name="id" id="id" value="{{ reservation.id }}"/>
+        <p>
+            <input type="submit" value="Delete" /> |
+            <a href="/reservation">Back to List</a>
+        </p>
+    </form>
+</section>
+{% endblock %}

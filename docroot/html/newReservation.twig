@@ -1,0 +1,24 @@
+{% extends "index.twig" %}
+
+{% block content %}
+<section class="content-wrapper main-content clear-fix">
+    <hgroup class="title">
+        <h1>Reservation</h1>
+        <h2>Create</h2>
+    </hgroup>
+    <form method="post" action="/reservation/add/" class="registrationForm">
+        <fieldset>
+            <div>
+                <label for="details">Reservation details</label>
+            </div>
+            <div>
+                <textarea id="details" name="details"></textarea>
+            </div>
+            <p>
+                <input type="submit" value="Create" /> |
+                <a href="/reservation">Back to List</a>
+            </p>
+        </fieldset>
+    </form>
+</section>
+{% endblock %}

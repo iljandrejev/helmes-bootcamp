@@ -1,0 +1,19 @@
+{% extends "index.twig" %}
+
+{% block content %}
+<section class="content-wrapper main-content clear-fix">
+    <hgroup class="title">
+        <h1>Reservation</h1>
+        <h2>Details</h2>
+    </hgroup>
+    <fieldset>
+        <div>
+            {{ reservation.details }}
+        </div>
+    </fieldset>
+    <p>
+        <a href="/reservation/edit/{{ reservation.id }}">Edit</a> |
+        <a href="/reservation">Back to List</a>
+    </p>
+</section>
+{% endblock %}

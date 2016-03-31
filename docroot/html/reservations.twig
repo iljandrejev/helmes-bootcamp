@@ -1,0 +1,26 @@
+{% extends "index.twig" %}
+
+{% block content %}
+<section class="content-wrapper main-content clear-fix">
+    <hgroup class="title">
+        <h1>Reservations</h1>
+        <h2>List of reservations</h2>
+    </hgroup>
+    <p>
+        <a href="/reservation/create">Create New</a>
+    </p>
+    <table>
+        {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.details }}</td>
+                <td>
+                    <a href="/reservation/edit/{{ reservation.id }}">Edit</a> |
+                    <a href="/reservation/details/{{ reservation.id }}">Details</a> |
+                    <a href="/reservation/delete/{{ reservation.id }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+</section>
+{% endblock %}
