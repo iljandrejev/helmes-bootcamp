@@ -14,6 +14,8 @@ $router->get('/reservation/edit/{id:i}', ['Controller\Reservation','editView']);
 $router->get('/reservation/details/{id:i}', ['Controller\Reservation','detailsView']);
 $router->get('/reservation/delete/{id:i}', ['Controller\Reservation','deleteView']);
 
+$router->get('/testelement',['Controller\TestElement','defaultView']);
+
 $router->get('/contact', ['Controller\Contact','defaultView']);
 
 $router->post('/reservation/add', ['Controller\Reservation','addAction']);
