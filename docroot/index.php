@@ -5,19 +5,23 @@ use Phroute\Phroute\RouteCollector;
 require_once "../src/bootstrap.php";
 
 $router = new RouteCollector();
-
+// GET: Index
 $router->get('/', ['Controller\Reservation','defaultView']);
 
+// GET: Reservations
 $router->get('/reservation', ['Controller\Reservation','defaultView']);
 $router->get('/reservation/create', ['Controller\Reservation','createView']);
 $router->get('/reservation/edit/{id:i}', ['Controller\Reservation','editView']);
 $router->get('/reservation/details/{id:i}', ['Controller\Reservation','detailsView']);
 $router->get('/reservation/delete/{id:i}', ['Controller\Reservation','deleteView']);
 
-$router->get('/testelement',['Controller\TestElement','defaultView']);
+// GET: Restaurants
+$router->get('/restaurant',['Controller\Restaurant','defaultView']);
 
+// GET: Contacts
 $router->get('/contact', ['Controller\Contact','defaultView']);
 
+// POST: Reservations
 $router->post('/reservation/add', ['Controller\Reservation','addAction']);
 $router->post('/reservation/edit', ['Controller\Reservation','editAction']);
 $router->post('/reservation/delete', ['Controller\Reservation','deleteAction']);

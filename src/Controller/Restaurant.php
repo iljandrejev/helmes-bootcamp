@@ -9,11 +9,11 @@
 namespace Controller;
 
 
-class TestElement extends AbstractController
+class Restaurant extends AbstractController
 {
 
     public function defaultView(){
-        return $this->display("test.twig");
+        return $this->display("restaurants.twig");
     }
 
 }

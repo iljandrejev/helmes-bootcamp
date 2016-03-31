@@ -10,6 +10,10 @@
         <div>
             {{ reservation.details }}
         </div>
+        <div class="time">
+            <i class="glyphicon-time"></i>
+            {{ reservation.date }}
+        </div>
     </fieldset>
     <p>
         <a href="/reservation/edit/{{ reservation.id }}">Edit</a> |

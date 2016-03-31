@@ -33,6 +33,14 @@ class Reservation
     private $_details;
 
     /**
+     * @ORM\Column(name="date", type="datetime")
+     *
+     * @var string
+     */
+
+    private $_date;
+
+    /**
      * @return int
      */
     public function getId()
@@ -49,6 +57,20 @@ class Reservation
     }
 
     /**
+     * @param datetime $date
+     */
+    public function setDate($date){
+        $this->_date = $date;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDate(){
+        return $this->_date . " ";
+    }
+
+    /**
      * @return string
      */
     public function getDetails()
@@ -62,6 +84,7 @@ class Reservation
     public function setDetails($details)
     {
         $this->_details = $details;
+        $this->setDate(new \DateTime(date('Y-m-d H:i:s')));
     }
 
     /**
