@@ -17,7 +17,20 @@ class Restaurant extends AbstractController
      */
     private $_service;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setService(new \Service\Restaurant());
+    }
+
+    public function setService($service)
+    {
+        $this->_service = $service;
+    }
+
     public function defaultView(){
+        $restaurants = $this->_service->findAll();
+        $this->setModel(array('restaurants'=> $restaurants));
         return $this->display("restaurants.twig");
     }
     
@@ -45,14 +58,7 @@ class Restaurant extends AbstractController
 
     public function createView()
     {
-        $hour = (int)date("H");
-        if($hour == 23){
-            $hour = "00";
-        }else{
-            $hour = $hour;
-        }
-        $this->setModel(array('startDate' => date("Y-m-d") . " " . $hour . ":00"));
-        return $this->display('newRestaurant.twig');
+       return $this->display('newRestaurant.twig');
     }
 
     public function editAction()
@@ -72,6 +78,7 @@ class Restaurant extends AbstractController
     public function addAction()
     {
         $post = $_POST;
+        $_POST = null;
         $restaurant = $this->_service->add($post);
         return $this->detailsView($restaurant->getId());
        

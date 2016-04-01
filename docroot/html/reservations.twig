@@ -24,7 +24,7 @@
         {% for reservation in reservations %}
             <tr>
                 <td>{{ reservation.reservationDatetime }}</td>
-                <td>{{ reservation.restaurant }}</td>
+                <td>{{ reservation.restaurant.name }}</td>
 
                 <td>{{ reservation.personName }}</td>
                 <td>{{ reservation.duration }} h</td>

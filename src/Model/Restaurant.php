@@ -17,8 +17,10 @@ class Restaurant{
 
     /**
      * @ORM\Id
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="restaurant_id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     *
      *
      * @var int
      */
@@ -37,6 +39,12 @@ class Restaurant{
      * @var string
      */
     private $_aadress;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Reservation", mappedBy="Restaurant")
+     */
+
+    private $_reservations;
 
     /**
      * @return int
@@ -85,6 +93,23 @@ class Restaurant{
     {
         $this->_aadress = $aadress;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getReservations()
+    {
+        return $this->_reservations;
+    }
+
+    /**
+     * @param mixed $reservations
+     */
+    public function setReservations($reservations)
+    {
+        $this->_reservations = $reservations;
+    }
+
 
     public function addRestaurant($details){
         $this->setName($details['restaurant_name']);

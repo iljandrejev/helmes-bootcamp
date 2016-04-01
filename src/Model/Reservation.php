@@ -8,6 +8,7 @@
 
 namespace Model;
 
+use Dao\Restaurant;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,10 +27,14 @@ class Reservation
     private $_id;
 
     /**
+     * 
      * @ORM\ManyToOne(targetEntity="Restaurant", inversedBy="reservation")
-     * @ORM\JoinColumn(name="restaurant_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="restaurant_id", referencedColumnName="restaurant_id")
+     *
+     *
      */
     private $_restaurant;
+
     /**
      * @ORM\Column(name="details", length=500)
      *
@@ -262,6 +267,9 @@ class Reservation
         $this->setGuestsNumber($details['guests_number']);
         $this->setReservationWay($details['reservation_way']);
         $this->setPersonName($details['person_name']);
+        $restaurant = new Restaurant();
+        $restaurant->getRestaurant($details['restaurant']);
+        $this->setRestaurant($restaurant);
         if(!empty($details['person_phone'])){
             $this->setPersonPhone($details['person_phone']);
         }

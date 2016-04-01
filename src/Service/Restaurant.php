@@ -51,7 +51,7 @@ class Restaurant
 
     public function add($post)
     {
-        //$details = strip_tags(@$post['details']);
+        $details = strip_tags(@$post['details']);
         return $this->_dao->add($post);
     }
 }

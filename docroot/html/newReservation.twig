@@ -14,9 +14,10 @@
                 <label for="restaurants">Restaurant</label>
             </div>
             <div class="">
-                <select name="restaurants" id="restaurants" class="form-control">
-
-                    <option value="3">Mustamäe</option>
+                <select name="restaurant" id="restaurants" class="form-control">
+                    {% for restaurant in restaurants %}
+                    <option value="{{ restaurant.id }}">{{ restaurant.name }}</option>
+                        {% endfor %}
                 </select>
             </div>
             </div>

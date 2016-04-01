@@ -12,7 +12,7 @@
         <table>
             {% for restaurant in restaurants %}
                 <tr>
-                    <td>{{ restaurant.details }}</td>
+                    <td>{{ restaurant.name }}</td>
                     <td>
                         <a href="/restaurant/edit/{{ restaurant.id }}">Edit</a> |
                         <a href="/restaurant/details/{{ restaurant.id }}">Details</a> |

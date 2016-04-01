@@ -27,7 +27,7 @@ class Restaurant
     public function getRestaurant($id)
     {
         $restaurant = $this->_repository->findOneBy(array('_id' => $id));
-        $this->_logger->info('Restaurant loaded successfully, Restaurant details=' . $restaurant);
+        $this->_logger->info('Restaurant loaded successfully, Restaurant details=' . $restaurant->getName());
         return $restaurant;
     }
 
@@ -35,7 +35,7 @@ class Restaurant
     {
         $restaurants = $this->_repository->findAll();
         foreach ($restaurants as $restaurant) {
-            $this->_logger->info('Restaurant::' . $restaurant);
+            $this->_logger->info('Restaurant::' . $restaurant->getName());
         }
         return $restaurants;
     }
