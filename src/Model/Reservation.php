@@ -26,19 +26,69 @@ class Reservation
     private $_id;
 
     /**
-     * @ORM\Column(name="details", length=2000)
+     * @ORM\Column(name="details", length=500)
      *
      * @var string
      */
     private $_details;
 
     /**
-     * @ORM\Column(name="date", type="datetime")
+     * @ORM\Column(name="reservation_added", type="datetime")
      *
      * @var string
      */
 
     private $_date;
+
+    /**
+     * @ORM\Column(name="reservation_datetime", type="datetime")
+     *
+     * @var string
+     */
+
+    private $_reservationDatetime;
+
+    /**
+     * @ORM\Column(name="duration", type="float")
+     *
+     * @var float
+     */
+
+    private $_duration;
+
+    /**
+     * @ORM\Column(name="guests_number", type="integer")
+     *
+     * @var int
+     */
+
+    private $_guestsNumber;
+
+    /**
+     * @ORM\Column(name="reservation_way", type="string")
+     *
+     * @var string
+     */
+
+    private $_reservationWay;
+
+    /**
+     * @ORM\Column(name="person_name")
+     *
+     * @var string
+     */
+
+    private $_personName;
+
+    /**
+     * @ORM\Column(name="person_phone")
+     *
+     * @var string
+     */
+
+    private $_personPhone;
+
+
 
     /**
      * @return int
@@ -67,7 +117,7 @@ class Reservation
      * @return string
      */
     public function getDate(){
-        return $this->_date . " ";
+        return $this->_date->format('Y-m-d H:i:s');
     }
 
     /**
@@ -85,6 +135,114 @@ class Reservation
     {
         $this->_details = $details;
         $this->setDate(new \DateTime(date('Y-m-d H:i:s')));
+    }
+
+    /**
+     * @return string
+     */
+    public function getReservationDatetime()
+    {
+        return $this->_reservationDatetime;
+    }
+
+    /**
+     * @param datetime $reservationDatetime
+     */
+    public function setReservationDatetime($reservationDatetime)
+    {
+        $this->_reservationDatetime = $reservationDatetime;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDuration()
+    {
+        return $this->_duration;
+    }
+
+    /**
+     * @param float $duration
+     */
+    public function setDuration($duration)
+    {
+        $this->_duration = $duration;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGuestsNumber()
+    {
+        return $this->_guestsNumber;
+    }
+
+    /**
+     * @param int $guestsNumber
+     */
+    public function setGuestsNumber($guestsNumber)
+    {
+        $this->_guestsNumber = $guestsNumber;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReservationWay()
+    {
+        return $this->_reservationWay;
+    }
+
+    /**
+     * @param string $reservationWay
+     */
+    public function setReservationWay($reservationWay)
+    {
+        $this->_reservationWay = $reservationWay;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPersonName()
+    {
+        return $this->_personName;
+    }
+
+    /**
+     * @param string $personName
+     */
+    public function setPersonName($personName)
+    {
+        $this->_personName = $personName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPersonPhone()
+    {
+        return $this->_personPhone;
+    }
+
+    /**
+     * @param string $personPhone
+     */
+    public function setPersonPhone($personPhone)
+    {
+        $this->_personPhone = $personPhone;
+    }
+
+    public function addReservation($details){
+        $this->setReservationDatetime(new \DateTime($details['reservation_datetime']));
+        $this->setDuration($details['duration']);
+        $this->setGuestsNumber($details['guests_number']);
+        $this->setReservationWay($details['reservation_way']);
+        $this->setPersonName($details['person_name']);
+        if(!empty($details['person_phone'])){
+            $this->setPersonPhone($details['person_phone']);
+        }
+        $this->setDetails($details['details']);
     }
 
     /**

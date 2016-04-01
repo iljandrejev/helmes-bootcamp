@@ -12,6 +12,7 @@
     <table>
         {% for reservation in reservations %}
             <tr>
+                <td>{{ reservation.person }}</td>
                 <td>{{ reservation.details }}</td>
                 <td>
                     <a href="/reservation/edit/{{ reservation.id }}">Edit</a> |

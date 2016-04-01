@@ -52,6 +52,6 @@ class Reservation
     public function add($post)
     {
         $details = strip_tags(@$post['details']);
-        return $this->_dao->add($details);
+        return $this->_dao->add($post);
     }
 }

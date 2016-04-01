@@ -60,7 +60,7 @@ class Reservation
     public function add($details)
     {
         $reservation = new \Model\Reservation();
-        $reservation->setDetails($details);
+        $reservation->addReservation($details);
         $this->_em->persist($reservation);
         $this->_em->flush($reservation);
         $this->_logger->info('Reservation record saved successfully');

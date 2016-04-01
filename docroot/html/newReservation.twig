@@ -8,12 +8,112 @@
     </hgroup>
     <form method="post" action="/reservation/add/" class="registrationForm">
         <fieldset>
+            <div class="row">
+                <div class="col-md-6">
+            <div>
+                <label for="restaurants">Restaurant</label>
+            </div>
+            <div class="">
+                <select name="restaurants" id="restaurants" class="form-control">
+
+                    <option value="3">Mustamäe</option>
+                </select>
+            </div>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <label for="restaurants">Reservation datetime</label>
+                </div>
+                <div class=''>
+                    <input type="text" value="2016-04-15 21:05" id="datetimepicker" name="reservation_datetime" class="form-control" readonly>
+                </div>
+                <script type="text/javascript">
+                    jQuery('#datetimepicker').datetimepicker({
+                        format: 'yyyy-mm-dd hh:ii',
+                        autoclose:true,
+                        startDate: "2016-04-15 09:00",
+                        weekStart:1,
+                        language:"ee"
+
+                    });
+                </script>
+            </div>
+                <div class="col-md-2">
+                    <div>
+                        <label for="restaurants">Duration</label>
+                    </div>
+                    <div class="">
+                        <select name="duration" id="restaurants" class="form-control" >
+                            <option value="0.3">30 min</option>
+                            <option value="1">1 h</option>
+                            <option value="1.5">1.5 h</option>
+                            <option value="2">2. h</option>
+                            <option value="2.5">2.5 h</option>
+                            <option value="3">3 h</option>
+                            <option value="3.5">3.5 h</option>
+                            <option value="4">4. h</option>
+                            <option value="4.5">4.5 h</option>
+                            <option value="5">5 h</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-5">
+                    <div>
+                        <label for="restaurants">Contact name</label>
+                    </div>
+                    <div class="">
+                        <input type="text" id="guests_number" name="person_name"  class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div>
+                        <label for="restaurants">Contact phone</label>
+                    </div>
+                    <div class="">
+                        <input type="tel" id="guests_number" name="person_phone"   class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div>
+                        <label for="restaurants">Guests number</label>
+                    </div>
+                    <div class="">
+                        <input type="number" id="guests_number" name="guests_number" max="50" min="1" value="1" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div>
+                        <label for="restaurants">Reservation way</label>
+                    </div>
+                    <div class="">
+                        <select name="reservation_way" id="restaurants" class="form-control" >
+
+                            <option value="phone">Phone</option>
+                            <option value="email">Email</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+<div class="col-md-8">
+
             <div>
                 <label for="details">Reservation details</label>
             </div>
             <div>
-                <textarea id="details" name="details"></textarea>
-            </div>
+                <textarea id="details" name="details" class="form-control"></textarea>
+            </div></div></div>
             <p>
                 <input type="submit" value="Create" /> |
                 <a href="/reservation">Back to List</a>
