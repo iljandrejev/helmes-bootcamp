@@ -7,20 +7,20 @@
             <h2>List of restaourants</h2>
         </hgroup>
         <p>
-            <a href="/reservation/create">Create New</a>
+            <a href="/restaurant/create">Create New</a>
         </p>
         <table>
-            {% for reservation in reservations %}
+            {% for restaurant in restaurants %}
                 <tr>
-                    <td>{{ reservation.details }}</td>
+                    <td>{{ restaurant.details }}</td>
                     <td>
-                        <a href="/reservation/edit/{{ reservation.id }}">Edit</a> |
-                        <a href="/reservation/details/{{ reservation.id }}">Details</a> |
-                        <a href="/reservation/delete/{{ reservation.id }}">Delete</a>
+                        <a href="/restaurant/edit/{{ restaurant.id }}">Edit</a> |
+                        <a href="/restaurant/details/{{ restaurant.id }}">Details</a> |
+                        <a href="/restaurant/delete/{{ restaurant.id }}">Delete</a>
                     </td>
                 </tr>
             {% endfor %}
         </table>
-
+{{ element }}
     </section>
 {% endblock %}

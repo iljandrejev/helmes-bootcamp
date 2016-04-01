@@ -56,6 +56,11 @@ class Reservation extends AbstractController
 
     public function createView()
     {
+        $date = new \DateTime(date('Y-m-d H:m'));
+        $unixTime= $date->getTimestamp();
+        $date->setTimestamp($unixTime + 3600);
+
+        $this->setModel(array('startDate' => $date->format("Y-m-d H:i")));
         return $this->display('newReservation.twig');
     }
 

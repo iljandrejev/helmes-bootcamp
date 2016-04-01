@@ -25,13 +25,13 @@
                     <label for="restaurants">Reservation datetime</label>
                 </div>
                 <div class=''>
-                    <input type="text" value="2016-04-15 21:05" id="datetimepicker" name="reservation_datetime" class="form-control" readonly>
+                    <input type="text" value="{{ startDate }}" id="datetimepicker" name="reservation_datetime" class="form-control" readonly>
                 </div>
                 <script type="text/javascript">
                     jQuery('#datetimepicker').datetimepicker({
                         format: 'yyyy-mm-dd hh:ii',
                         autoclose:true,
-                        startDate: "2016-04-15 09:00",
+                        startDate: "{{ startDate }}",
                         weekStart:1,
                         language:"ee"
 
@@ -44,7 +44,7 @@
                     </div>
                     <div class="">
                         <select name="duration" id="restaurants" class="form-control" >
-                            <option value="0.3">30 min</option>
+                            <option value="0.5">30 min</option>
                             <option value="1">1 h</option>
                             <option value="1.5">1.5 h</option>
                             <option value="2">2. h</option>
@@ -106,7 +106,7 @@
 
 
             <div class="row">
-<div class="col-md-8">
+<div class="col-md-12">
 
             <div>
                 <label for="details">Reservation details</label>
@@ -117,6 +117,12 @@
             <p>
                 <input type="submit" value="Create" /> |
                 <a href="/reservation">Back to List</a>
+
+                <div class="alert-info">
+                {{ timenow }}
+                {{ hourpast }}
+                {{ between }}
+            </div>
             </p>
         </fieldset>
     </form>

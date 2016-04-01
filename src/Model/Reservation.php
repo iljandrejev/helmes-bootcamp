@@ -26,10 +26,16 @@ class Reservation
     private $_id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Restaurant", inversedBy="reservation")
+     * @ORM\JoinColumn(name="restaurant_id", referencedColumnName="id")
+     */
+    private $_restaurant;
+    /**
      * @ORM\Column(name="details", length=500)
      *
      * @var string
      */
+
     private $_details;
 
     /**
@@ -142,7 +148,7 @@ class Reservation
      */
     public function getReservationDatetime()
     {
-        return $this->_reservationDatetime;
+        return $this->_reservationDatetime->format("d.m.Y H:i");
     }
 
     /**
@@ -232,6 +238,23 @@ class Reservation
     {
         $this->_personPhone = $personPhone;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRestaurant()
+    {
+        return $this->_restaurant;
+    }
+
+    /**
+     * @param mixed $restaurant
+     */
+    public function setRestaurant($restaurant)
+    {
+        $this->_restaurant = $restaurant;
+    }
+
 
     public function addReservation($details){
         $this->setReservationDatetime(new \DateTime($details['reservation_datetime']));

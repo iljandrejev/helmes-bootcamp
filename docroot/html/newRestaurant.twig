@@ -1,0 +1,45 @@
+{% extends "index.twig" %}
+
+{% block content %}
+    <section class="content-wrapper main-content clear-fix">
+        <hgroup class="title">
+            <h1>Restaurant</h1>
+            <h2>Create</h2>
+        </hgroup>
+        <form method="post" action="/restaurant/add/" class="registrationForm">
+            <fieldset>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div>
+                            <label for="restaurants">Restaurant name</label>
+                        </div>
+                        <div class="">
+                            <input name="restaurant_name" class="form-control" placeholder="Insert restaurant name" required>
+                        </div>
+                    </div>
+                    </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div>
+                            <label for="restaurants">Aadress</label>
+                        </div>
+                        <div class=''>
+                            <input type="text" id="datetimepicker" name="aadress" class="form-control" placeholder="Insert restaurant aadress">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+
+                <p>
+                    <input type="submit" value="Create" /> |
+                    <a href="/reservation">Back to List</a>
+                </p>
+            </fieldset>
+        </form>
+    </section>
+{% endblock %}

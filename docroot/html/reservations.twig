@@ -7,17 +7,33 @@
         <h2>List of reservations</h2>
     </hgroup>
     <p>
-        <a href="/reservation/create">Create New</a>
+        <a href="/reservation/create" class="btn btn-success">Create New</a>
     </p>
-    <table>
+    <table class="table table-hover">
+        <thead>
+
+            <th>Reservation</th>
+            <th>Restaurant</th>
+            <th>Client</th>
+            <th>Duration</th>
+
+
+            <th>Guests number</th>
+            <th>Actions</th>
+        </thead>
         {% for reservation in reservations %}
             <tr>
-                <td>{{ reservation.person }}</td>
-                <td>{{ reservation.details }}</td>
+                <td>{{ reservation.reservationDatetime }}</td>
+                <td>{{ reservation.restaurant }}</td>
+
+                <td>{{ reservation.personName }}</td>
+                <td>{{ reservation.duration }} h</td>
+                <td>{{ reservation.guestsNumber }}</td>
+
                 <td>
-                    <a href="/reservation/edit/{{ reservation.id }}">Edit</a> |
-                    <a href="/reservation/details/{{ reservation.id }}">Details</a> |
-                    <a href="/reservation/delete/{{ reservation.id }}">Delete</a>
+                    <a href="/reservation/edit/{{ reservation.id }}" class="btn btn-warning btn-xs">Edit</a> |
+                    <a href="/reservation/details/{{ reservation.id }}" class="btn btn-default btn-xs">Details</a> |
+                    <a href="/reservation/delete/{{ reservation.id }}" class="btn btn-danger btn-xs">Delete</a>
                 </td>
             </tr>
         {% endfor %}

@@ -466,6 +466,10 @@ td button {
     margin-right: 4px;
 }
 
+form .row {
+    margin-bottom: 15px;
+}
+
 /* info and errors */
 .message-info {
     border: 1px solid;
