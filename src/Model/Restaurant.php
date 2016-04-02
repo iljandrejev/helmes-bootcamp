@@ -93,23 +93,7 @@ class Restaurant{
     {
         $this->_aadress = $aadress;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getReservations()
-    {
-        return $this->_reservations;
-    }
-
-    /**
-     * @param mixed $reservations
-     */
-    public function setReservations($reservations)
-    {
-        $this->_reservations = $reservations;
-    }
-
+    
 
     public function addRestaurant($details){
         $this->setName($details['restaurant_name']);

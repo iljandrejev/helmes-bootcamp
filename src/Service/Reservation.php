@@ -31,6 +31,12 @@ class Reservation
         return $reservations;
     }
 
+    public function findAllOrderDate(){
+        $reservations = $this->_dao->getReservationsByDate();
+        return $reservations;
+
+    }
+
     public function findOneById($id)
     {
         $reservation = $this->_dao->getReservation((int)$id);

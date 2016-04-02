@@ -7,12 +7,13 @@
             <h2>List of restaourants</h2>
         </hgroup>
         <p>
-            <a href="/restaurant/create">Create New</a>
+            <a href="/restaurant/create" class="btn btn-success">Create New</a>
         </p>
-        <table>
+        <table class="table table-hover">
             {% for restaurant in restaurants %}
                 <tr>
                     <td>{{ restaurant.name }}</td>
+                    <td> {{ restaurant.aadress }}</td>
                     <td>
                         <a href="/restaurant/edit/{{ restaurant.id }}">Edit</a> |
                         <a href="/restaurant/details/{{ restaurant.id }}">Details</a> |

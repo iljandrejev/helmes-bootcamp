@@ -5,12 +5,9 @@
  * Date: 9.03.16
  * Time: 12:05
  */
-
 namespace Model;
 
-use Dao\Restaurant;
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="reservation")
@@ -25,82 +22,62 @@ class Reservation
      * @var int
      */
     private $_id;
-
     /**
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="Restaurant", inversedBy="reservation")
      * @ORM\JoinColumn(name="restaurant_id", referencedColumnName="restaurant_id")
      *
      *
      */
     private $_restaurant;
-
     /**
      * @ORM\Column(name="details", length=500)
      *
      * @var string
      */
-
     private $_details;
-
     /**
      * @ORM\Column(name="reservation_added", type="datetime")
      *
      * @var string
      */
-
     private $_date;
-
     /**
      * @ORM\Column(name="reservation_datetime", type="datetime")
      *
      * @var string
      */
-
     private $_reservationDatetime;
-
     /**
      * @ORM\Column(name="duration", type="float")
      *
      * @var float
      */
-
     private $_duration;
-
     /**
      * @ORM\Column(name="guests_number", type="integer")
      *
      * @var int
      */
-
     private $_guestsNumber;
-
     /**
      * @ORM\Column(name="reservation_way", type="string")
      *
      * @var string
      */
-
     private $_reservationWay;
-
     /**
      * @ORM\Column(name="person_name")
      *
      * @var string
      */
-
     private $_personName;
-
     /**
      * @ORM\Column(name="person_phone")
      *
      * @var string
      */
-
     private $_personPhone;
-
-
-
     /**
      * @return int
      */
@@ -108,7 +85,6 @@ class Reservation
     {
         return $this->_id;
     }
-
     /**
      * @param int $id
      */
@@ -116,21 +92,18 @@ class Reservation
     {
         $this->_id = $id;
     }
-
     /**
      * @param datetime $date
      */
     public function setDate($date){
         $this->_date = $date;
     }
-
     /**
      * @return string
      */
     public function getDate(){
         return $this->_date->format('Y-m-d H:i:s');
     }
-
     /**
      * @return string
      */
@@ -138,7 +111,6 @@ class Reservation
     {
         return $this->_details;
     }
-
     /**
      * @param string $details
      */
@@ -147,7 +119,6 @@ class Reservation
         $this->_details = $details;
         $this->setDate(new \DateTime(date('Y-m-d H:i:s')));
     }
-
     /**
      * @return string
      */
@@ -155,7 +126,6 @@ class Reservation
     {
         return $this->_reservationDatetime->format("d.m.Y H:i");
     }
-
     /**
      * @param datetime $reservationDatetime
      */
@@ -163,7 +133,6 @@ class Reservation
     {
         $this->_reservationDatetime = $reservationDatetime;
     }
-
     /**
      * @return float
      */
@@ -171,7 +140,6 @@ class Reservation
     {
         return $this->_duration;
     }
-
     /**
      * @param float $duration
      */
@@ -179,7 +147,6 @@ class Reservation
     {
         $this->_duration = $duration;
     }
-
     /**
      * @return int
      */
@@ -187,7 +154,6 @@ class Reservation
     {
         return $this->_guestsNumber;
     }
-
     /**
      * @param int $guestsNumber
      */
@@ -195,7 +161,6 @@ class Reservation
     {
         $this->_guestsNumber = $guestsNumber;
     }
-
     /**
      * @return string
      */
@@ -203,7 +168,6 @@ class Reservation
     {
         return $this->_reservationWay;
     }
-
     /**
      * @param string $reservationWay
      */
@@ -211,7 +175,6 @@ class Reservation
     {
         $this->_reservationWay = $reservationWay;
     }
-
     /**
      * @return string
      */
@@ -219,7 +182,6 @@ class Reservation
     {
         return $this->_personName;
     }
-
     /**
      * @param string $personName
      */
@@ -227,7 +189,6 @@ class Reservation
     {
         $this->_personName = $personName;
     }
-
     /**
      * @return string
      */
@@ -235,7 +196,6 @@ class Reservation
     {
         return $this->_personPhone;
     }
-
     /**
      * @param string $personPhone
      */
@@ -243,7 +203,6 @@ class Reservation
     {
         $this->_personPhone = $personPhone;
     }
-
     /**
      * @return mixed
      */
@@ -251,7 +210,6 @@ class Reservation
     {
         return $this->_restaurant;
     }
-
     /**
      * @param mixed $restaurant
      */
@@ -259,23 +217,19 @@ class Reservation
     {
         $this->_restaurant = $restaurant;
     }
-
-
     public function addReservation($details){
         $this->setReservationDatetime(new \DateTime($details['reservation_datetime']));
         $this->setDuration($details['duration']);
         $this->setGuestsNumber($details['guests_number']);
         $this->setReservationWay($details['reservation_way']);
         $this->setPersonName($details['person_name']);
-        $restaurant = new Restaurant();
-        $restaurant->getRestaurant($details['restaurant']);
-        $this->setRestaurant($restaurant);
+        $restaurant = new \Dao\Restaurant();
+        $this->setRestaurant($restaurant->getRestaurant($details['restaurant']));
         if(!empty($details['person_phone'])){
             $this->setPersonPhone($details['person_phone']);
         }
         $this->setDetails($details['details']);
     }
-
     /**
      * @return string
      */
@@ -283,5 +237,4 @@ class Reservation
     {
         return 'ID: ' . $this->_id . ', Details: ' . $this->_details;
     }
-
 }

@@ -10,7 +10,7 @@ namespace Dao;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Logger;
 
-class Restaurant
+class Restaurant 
 {
     private $_logger;
     private $_em;

@@ -28,7 +28,8 @@ class Reservation extends AbstractController
 
     public function defaultView()
     {
-        $reservations = $this->_service->findAll();
+        $reservations = $this->_service->findAllOrderDate();
+
         $this->setModel(array('reservations' => $reservations));
         return $this->display('reservations.twig');
     }

@@ -1,131 +1,153 @@
 {% extends "index.twig" %}
 
 {% block content %}
-<section class="content-wrapper main-content clear-fix">
-    <hgroup class="title">
-        <h1>Reservation</h1>
-        <h2>Create</h2>
-    </hgroup>
-    <form method="post" action="/reservation/add/" class="registrationForm">
-        <fieldset>
-            <div class="row">
-                <div class="col-md-6">
-            <div>
-                <label for="restaurants">Restaurant</label>
-            </div>
-            <div class="">
-                <select name="restaurant" id="restaurants" class="form-control">
-                    {% for restaurant in restaurants %}
-                    <option value="{{ restaurant.id }}">{{ restaurant.name }}</option>
-                        {% endfor %}
-                </select>
-            </div>
-            </div>
-            <div class="col-md-4">
-                <div>
-                    <label for="restaurants">Reservation datetime</label>
+    <section class="content-wrapper main-content clear-fix">
+        <hgroup class="title">
+            <h1>Reservation</h1>
+            <h2>Create</h2>
+        </hgroup>
+        <form method="post" action="/reservation/add/" class="registrationForm">
+            <fieldset>
+                <div class="row">
+                    {% if restaurants != null %}
+                    <div class="col-md-12">
+                        <div>
+                            <label for="restaurants">Restaurant</label>
+                        </div>
+                        <div class="">
+                            <div class="btn-group" data-toggle="buttons">
+
+                                {% for restaurant in restaurants %}
+                                    <label class="btn btn-primary">
+                                        <input type="radio" name="restaurant" id="option{{ restaurant.id }}"
+                                               autocomplete="off" value="{{ restaurant.id }}"/> {{ restaurant.name }}
+                                    </label>
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+                    </div>
+                    {% else %}
+                        <div class="col-md-12">
+
+                        <div class=" alert alert-danger center-block" role="alert">
+                            <div class="row">
+                                <div class="col-xs-10">Please insert restaurant first!</div>
+                                <div class="col-xs-2"><a class="btn btn-danger pull-right"> Insert restaurant</a></div>
+                            </div>
+
+
+                        </div></div>
+                    {% endif %}
                 </div>
-                <div class=''>
-                    <input type="text" value="{{ startDate }}" id="datetimepicker" name="reservation_datetime" class="form-control" readonly>
+                {% if restaurants != null %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <div>
+                            <label for="restaurants">Reservation datetime</label>
+                        </div>
+                        <div class=''>
+                            <input type="text" value="{{ startDate }}" id="datetimepicker" name="reservation_datetime"
+                                   class="form-control" readonly>
+                        </div>
+                        <script type="text/javascript">
+                            jQuery('#datetimepicker').datetimepicker({
+                                format: 'yyyy-mm-dd hh:ii',
+                                autoclose: true,
+                                startDate: "{{ startDate }}",
+                                weekStart: 1,
+                                language: "ee"
+
+                            });
+                        </script>
+                    </div>
+                    <div class="col-md-2">
+                        <div>
+                            <label for="restaurants">Duration</label>
+                        </div>
+                        <div class="">
+                            <select name="duration" id="restaurants" class="form-control">
+                                <option value="0.5">30 min</option>
+                                <option value="1">1 h</option>
+                                <option value="1.5">1.5 h</option>
+                                <option value="2">2. h</option>
+                                <option value="2.5">2.5 h</option>
+                                <option value="3">3 h</option>
+                                <option value="3.5">3.5 h</option>
+                                <option value="4">4. h</option>
+                                <option value="4.5">4.5 h</option>
+                                <option value="5">5 h</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div>
+                            <label for="restaurants">Reservation way</label>
+                        </div>
+                        <div class="">
+                            <select name="reservation_way" id="restaurants" class="form-control">
+
+                                <option value="phone">Phone</option>
+                                <option value="email">Email</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
-                <script type="text/javascript">
-                    jQuery('#datetimepicker').datetimepicker({
-                        format: 'yyyy-mm-dd hh:ii',
-                        autoclose:true,
-                        startDate: "{{ startDate }}",
-                        weekStart:1,
-                        language:"ee"
+                <div class="row">
 
-                    });
-                </script>
-            </div>
-                <div class="col-md-2">
-                    <div>
-                        <label for="restaurants">Duration</label>
+                    <div class="col-md-5">
+                        <div>
+                            <label for="restaurants">Contact name</label>
+                        </div>
+                        <div class="">
+                            <input type="text" id="guests_number" name="person_name" class="form-control">
+                        </div>
                     </div>
-                    <div class="">
-                        <select name="duration" id="restaurants" class="form-control" >
-                            <option value="0.5">30 min</option>
-                            <option value="1">1 h</option>
-                            <option value="1.5">1.5 h</option>
-                            <option value="2">2. h</option>
-                            <option value="2.5">2.5 h</option>
-                            <option value="3">3 h</option>
-                            <option value="3.5">3.5 h</option>
-                            <option value="4">4. h</option>
-                            <option value="4.5">4.5 h</option>
-                            <option value="5">5 h</option>
-                        </select>
+                    <div class="col-md-5">
+                        <div>
+                            <label for="restaurants">Contact phone</label>
+                        </div>
+                        <div class="">
+                            <input type="tel" id="guests_number" name="person_phone" class="form-control">
+                        </div>
                     </div>
-                </div>
-            </div>
+                    <div class="col-md-2">
+                        <div>
+                            <label for="restaurants">Guests number</label>
+                        </div>
+                        <div class="">
+                            <input type="number" id="guests_number" name="guests_number" max="50" min="1" value="1"
+                                   class="form-control">
+                        </div>
+                    </div>
 
-            <div class="row">
+                </div>
 
-                <div class="col-md-5">
-                    <div>
-                        <label for="restaurants">Contact name</label>
-                    </div>
-                    <div class="">
-                        <input type="text" id="guests_number" name="person_name"  class="form-control">
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div>
-                        <label for="restaurants">Contact phone</label>
-                    </div>
-                    <div class="">
-                        <input type="tel" id="guests_number" name="person_phone"   class="form-control">
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div>
-                        <label for="restaurants">Guests number</label>
-                    </div>
-                    <div class="">
-                        <input type="number" id="guests_number" name="guests_number" max="50" min="1" value="1" class="form-control">
+
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div>
+                            <label for="details">Reservation details</label>
+                        </div>
+                        <div>
+                            <textarea id="details" name="details" class="form-control"></textarea>
+                        </div>
                     </div>
                 </div>
 
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div>
-                        <label for="restaurants">Reservation way</label>
-                    </div>
-                    <div class="">
-                        <select name="reservation_way" id="restaurants" class="form-control" >
-
-                            <option value="phone">Phone</option>
-                            <option value="email">Email</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                </div>
-
-            </div>
+                <p>
+                    <input type="submit" value="Create"/> |
+                    <a href="/reservation">Back to List</a>
 
 
-            <div class="row">
-<div class="col-md-12">
-
-            <div>
-                <label for="details">Reservation details</label>
-            </div>
-            <div>
-                <textarea id="details" name="details" class="form-control"></textarea>
-            </div></div></div>
-            <p>
-                <input type="submit" value="Create" /> |
-                <a href="/reservation">Back to List</a>
-
-                <div class="alert-info">
-                {{ timenow }}
-                {{ hourpast }}
-                {{ between }}
-            </div>
-            </p>
-        </fieldset>
-    </form>
-</section>
+                </p>
+                    {% endif %}
+            </fieldset>
+        </form>
+    </section>
 {% endblock %}

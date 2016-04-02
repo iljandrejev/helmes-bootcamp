@@ -41,6 +41,14 @@ class Reservation
         return $reservations;
     }
 
+    public function getReservationsByDate(){
+        $reservations = $this->_repository->findBy(array(),array('_reservationDatetime'=>'ASC'));
+        foreach ($reservations as $reservation) {
+            $this->_logger->info('Reservation::' . $reservation);
+        }
+        return $reservations;
+    }
+
     public function update($id, $details)
     {
         $reservation = $this->getReservation($id);
