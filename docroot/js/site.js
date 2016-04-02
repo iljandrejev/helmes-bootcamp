@@ -28,4 +28,30 @@ $().ready(function() {
         }
     });
     
+    jQuery('#datetimepicker6').datepicker({
+        firstDay:1,
+        dateFormat: "dd.mm.yy",
+        onClose: function( selectedDate ) {
+            jQuery( "#datetimepicker7" ).datepicker( "option", "minDate", selectedDate );
+        }
+    });
+    jQuery('#datetimepicker7').datepicker({
+        firstDay:1,
+        dateFormat: "dd.mm.yy",
+        onClose: function( selectedDate ) {
+            jQuery( "#datetimepicker6" ).datepicker( "option", "maxDate", selectedDate );}
+    });
+    jQuery('.input-group-addon.filterFrom').click(function(){
+        jQuery('#datetimepicker6').val(null);
+        jQuery('#datetimepicker7').datepicker({
+            minDate: null
+        });
+    });
+    jQuery('.input-group-addon.filterTo').click(function(){
+        jQuery('#datetimepicker7').val(null);
+        jQuery('#datetimepicker6').datepicker({
+            maxDate: null
+        });
+    });
+    
 });

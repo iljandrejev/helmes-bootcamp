@@ -22,10 +22,10 @@ a {
     text-decoration: underline;
 }
 
-a:link, a:visited,
+/*a:link, a:visited,
 a:active, a:hover {
     color: #333;
-}
+}*/
 
 a:hover {
     background-color: #c7d1d6;
@@ -593,6 +593,71 @@ tr.canceled >td {
 tr.canceled >td:last-child {
     text-decoration: initial;
 }
+/*Datepicker
+----------------------------------------------------*/
+.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all {
+    position: absolute;
+    z-index: 2;
+    background-color: white;
+    padding: 15px;
+}
+
+.ui-datepicker.ui-widget table.ui-datepicker-calendar th, .ui-datepicker.ui-widget table.ui-datepicker-calendar td {
+    width:26px;
+    height:26px;
+
+
+}
+.ui-datepicker.ui-widget table.ui-datepicker-calendar td a {
+    color:black;
+    text-align: center;
+    display:block;
+    padding: 0px 5px;
+}
+.ui-datepicker.ui-widget table.ui-datepicker-calendar td a:hover {
+    background-color:orange;
+    text-decoration:initial;
+    border-radius: 13px;
+    width:26px !important;
+    padding: 3px 5px;
+    color: white;
+}
+.ui-datepicker-title {
+    text-align: center;
+    font-weight: 700;
+    font-size: x-large;
+}
+a.ui-datepicker-next.ui-corner-all {
+    float: right;
+}
+
+a.ui-datepicker-prev.ui-corner-all {
+    float: left;
+}
+a.ui-datepicker-prev.ui-corner-all, a.ui-datepicker-next.ui-corner-all{
+    background:lavender;
+    color:grey;
+    padding:2px 10px;
+    border-radius:2px;
+    margin-bottom:5px;
+}
+a.ui-datepicker-prev.ui-corner-all:hover,a.ui-datepicker-next.ui-corner-all:hover{
+    background:orange;
+    color:white;
+    text-decoration:initial;
+    cursor:pointer;
+}
+td.ui-datepicker-unselectable.ui-state-disabled {
+    color: lavender;
+    text-align: center;
+}
+td a.ui-state-default.ui-state-active {
+
+    border: 2px solid orange;
+
+}
+
+
 
 
 /********************

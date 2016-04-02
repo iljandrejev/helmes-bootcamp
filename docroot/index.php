@@ -29,6 +29,7 @@ $router->get('/contact', ['Controller\Contact','defaultView']);
 $router->post('/reservation/add', ['Controller\Reservation','addAction']);
 $router->post('/reservation/edit', ['Controller\Reservation','editAction']);
 $router->post('/reservation/cancel', ['Controller\Reservation','cancelAction']);
+$router->post('/reservation/filter', ['Controller\Reservation','filterView']);
 $router->post('/reservation/delete', ['Controller\Reservation','deleteAction']);
 
 // POST: Restaurants

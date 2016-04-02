@@ -42,6 +42,11 @@ class Reservation
         $reservation = $this->_dao->getReservation((int)$id);
         return $reservation;
     }
+    
+    public function filter($from=null,$to=null,$restaurant=null){
+        $reservations = $this->_dao->filter();
+        return $reservations;
+    }
 
     public function update($post)
     {

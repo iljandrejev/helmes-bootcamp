@@ -30,7 +30,10 @@ class Reservation extends AbstractController
     {
         $reservations = $this->_service->findAllOrderDate();
 
-        $this->setModel(array('reservations' => $reservations));
+        $service = new \Service\Restaurant();
+        $restaurants = $service->findAll();
+
+        $this->setModel(array('reservations' => $reservations,"restaurants"=>$restaurants));
         return $this->display('reservations.twig');
     }
 
@@ -72,6 +75,15 @@ class Reservation extends AbstractController
 
         $this->setModel(array('startDate' => $date->format("d.m.Y H:i"), "restaurants"=>$restaurants));
         return $this->display('newReservation.twig');
+    }
+    
+    public function filterView(){
+        $post = $_POST;
+        
+        $reservations = $this->_service->filter();
+        
+        $this->setModel(array('reservations'=>$reservations, 'filterView'=>'This is filterview'));
+        return $this->display('reservations.twig');
     }
 
     public function cancelAction(){
