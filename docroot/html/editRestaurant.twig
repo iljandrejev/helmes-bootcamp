@@ -1,0 +1,49 @@
+{% extends "index.twig" %}
+
+{% block content %}
+    <section class="content-wrapper main-content clear-fix">
+        <hgroup class="title">
+            <h1>Restaurant</h1>
+            <h2>Edit</h2>
+        </hgroup>
+        <form method="post" action="/restaurant/edit" class="registrationForm">
+
+            <fieldset>
+                <input type="hidden" id="id" name="id" value="{{ restaurant.id }}"/>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div>
+                                    <label for="restaurant_name">Restaurant name</label>
+                                </div>
+                                <div class="">
+                                    <input name="restaurant_name" class="form-control" placeholder="Insert restaurant name" required value="{{ restaurant.name }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div>
+                                    <label for="aadress">Aadress</label>
+                                </div>
+                                <div class=''>
+                                    <input type="text" id="aadress" name="aadress" class="form-control" placeholder="Insert restaurant aadress" value="{{ restaurant.aadress }}">
+                                </div>
+
+                            </div>
+
+                        </div></div>
+                    <div class="col-md-4"><img src="https://maps.googleapis.com/maps/api/staticmap?center={{ restaurant.aadress }}&zoom=16&size=300x150&maptype=roadmap&markers=color:red%7Clabel:dot%&key=AIzaSyBrEXTzhCzIvWEbCJJ0f4Ybnb8dipTo5Jc" />
+                    </div>
+                </div>
+
+
+                <p>
+                    <input type="submit" value="Save" /> |
+                    <a href="/restaurant">Back to List</a>
+                </p>
+            </fieldset>
+        </form>
+    </section>
+{% endblock %}

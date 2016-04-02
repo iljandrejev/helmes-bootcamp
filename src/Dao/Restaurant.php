@@ -43,16 +43,16 @@ class Restaurant
     public function update($id, $details)
     {
         $restaurant = $this->getRestaurant($id);
-        $restaurant->setDetails($details);
+        $restaurant->addRestaurant($details);
         $this->_em->persist($restaurant);
-        $this->_logger->info('Restaurant record updated successfully, Restaurant details=' . $restaurant);
+        $this->_logger->info('Restaurant record updated successfully, Restaurant details=' . $restaurant->getName());
     }
 
     public function delete($id)
     {
         $restaurant = $this->getRestaurant($id);
         $this->_em->remove($restaurant);
-        $this->_logger->info('Restaurant deleted successfully, Restaurant details=' . $restaurant);
+        $this->_logger->info('Restaurant deleted successfully, Restaurant details=' . $restaurant->getName());
         $this->_em->flush();
     }
 

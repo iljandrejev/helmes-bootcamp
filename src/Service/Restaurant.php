@@ -40,8 +40,7 @@ class Restaurant
     public function update($post)
     {
         $id = (int)@$post['id'];
-        $details = strip_tags(@$post['details']);
-        $this->_dao->update($id, $details);
+        $this->_dao->update($id, $post);
     }
 
     public function delete($id)

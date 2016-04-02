@@ -29,6 +29,7 @@ class Reservation
     {
         $reservation = $this->_repository->findOneBy(array('_id' => $id));
         $this->_logger->info('Reservation loaded successfully, Reservation details=' . $reservation);
+
         return $reservation;
     }
 
@@ -51,10 +52,19 @@ class Reservation
 
     public function update($id, $details)
     {
+        
         $reservation = $this->getReservation($id);
-        $reservation->setDetails($details);
+        $reservation->updateReservation($details);
         $this->_em->persist($reservation);
         $this->_logger->info('Reservation record updated successfully, Reservation details=' . $reservation);
+    }
+    
+    public function cancel($id){
+        $reservation = $this->getReservation($id);
+        $reservation->cancelReservation();
+        $this->_em->persist($reservation);
+        $this->_logger->info('Reservation record canceled successfully, Reservation details=' . $reservation);
+        
     }
 
     public function delete($id)

@@ -78,6 +78,25 @@ class Reservation
      * @var string
      */
     private $_personPhone;
+
+    /**
+     * @ORM\Column(name="status")
+     *
+     * @var string
+     */
+    private $_status;
+
+    /**
+     * @ORM\Column(name="last_modified", type="datetime")
+     *
+     * @var string
+     */
+    private $_lastModified;
+    
+    
+    
+    /*------------------*/
+    
     /**
      * @return int
      */
@@ -117,7 +136,7 @@ class Reservation
     public function setDetails($details)
     {
         $this->_details = $details;
-        $this->setDate(new \DateTime(date('Y-m-d H:i:s')));
+        
     }
     /**
      * @return string
@@ -217,6 +236,41 @@ class Reservation
     {
         $this->_restaurant = $restaurant;
     }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->_status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+        $this->_status = $status;
+    }
+
+    /**
+     * @return datetime
+     */
+    public function getLastModified()
+    {
+        return $this->_lastModified;
+    }
+
+    /**
+     * @param datetime $lastModified
+     */
+    public function setLastModified($lastModified)
+    {
+        $this->_lastModified = $lastModified;
+    }
+
+
+
     public function addReservation($details){
         $this->setReservationDatetime(new \DateTime($details['reservation_datetime']));
         $this->setDuration($details['duration']);
@@ -229,7 +283,32 @@ class Reservation
             $this->setPersonPhone($details['person_phone']);
         }
         $this->setDetails($details['details']);
+        $this->setDate(new \DateTime(date('Y-m-d H:i:s')));
     }
+    
+    public function updateReservation($details){
+        $this->setReservationDatetime(new \DateTime($details['reservation_datetime']));
+        $this->setDuration($details['duration']);
+        $this->setGuestsNumber($details['guests_number']);
+        $this->setReservationWay($details['reservation_way']);
+        $this->setPersonName($details['person_name']);
+        $restaurant = new \Dao\Restaurant();
+        $this->setRestaurant($restaurant->getRestaurant($details['restaurant']));
+        if(!empty($details['person_phone'])){
+            $this->setPersonPhone($details['person_phone']);
+        }
+        $this->setDetails($details['details']);
+        $lm = new \DateTime(date('Y-m-d H:i:s'));
+        $this->setLastModified($lm);
+        $this->setStatus("modified");
+    }
+    
+    public function cancelReservation(){
+        $this->setStatus('canceled');
+        $lm = new \DateTime(date('Y-m-d H:i:s'));
+        $this->setLastModified($lm);
+    }
+    
     /**
      * @return string
      */

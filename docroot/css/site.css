@@ -586,6 +586,14 @@ tr.pager td {
     padding: 0 0.25em 0 0;
 }
 
+tr.canceled >td {
+    text-decoration: line-through;
+}
+
+tr.canceled >td:last-child {
+    text-decoration: initial;
+}
+
 
 /********************
 *   Mobile Styles   *

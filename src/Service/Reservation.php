@@ -47,7 +47,12 @@ class Reservation
     {
         $id = (int)@$post['id'];
         $details = strip_tags(@$post['details']);
-        $this->_dao->update($id, $details);
+        $this->_dao->update($id, $post);
+    }
+    
+    public function cancel($id){
+        
+        $this->_dao->cancel((int)$id);
     }
 
     public function delete($id)

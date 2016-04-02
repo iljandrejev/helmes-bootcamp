@@ -3,12 +3,29 @@
  */
 $().ready(function() {
     // validate registration form
-    $(".registrationForm").validate({
+    $(".reservationForm").validate({
         rules: {
-            details: "required"
+            person_name: {
+                required: true,
+                minlength: 3,
+                maxlength: 50
+            },
+            restaurant: "required",
+            duration: "required",
+            reservation_datetime: "required",
+            reservation_way: "required",
+            guests_number: {
+                required: true,
+                max: 50,
+                min: 1
+            }
+
         },
         messages: {
-            details: "Registration details are mandatory!"
+            restaurant: "!",
+            person_name: "Lenght 2-50 letters",
+            details: "Too long"
         }
     });
+    
 });

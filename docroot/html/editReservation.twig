@@ -1,25 +1,158 @@
 {% extends "index.twig" %}
 
 {% block content %}
-<section class="content-wrapper main-content clear-fix">
-    <hgroup class="title">
-        <h1>Reservation</h1>
-        <h2>Edit</h2>
-    </hgroup>
-    <form method="post" action="/reservation/edit" class="registrationForm">
-        <fieldset>
-            <input type="hidden" id="id" name="id" value="{{ reservation.id }}"/>
-            <div>
-                <label for="details">Reservation details</label>
-            </div>
-            <div>
-                <textarea id="details" name="details">{{ reservation.details }}</textarea>
-            </div>
-            <p>
-                <input type="submit" value="Save" /> |
-                <a href="/reservation">Back to List</a>
-            </p>
-        </fieldset>
-    </form>
-</section>
+    <section class="content-wrapper main-content clear-fix">
+        <hgroup class="title">
+            <h1>Reservation</h1>
+            <h2>Edit</h2>
+        </hgroup>
+        <form method="post" action="/reservation/edit/" class="reservationForm">
+            <fieldset>
+                <div class="row">
+                    {% if restaurants != null %}
+                        <div class="col-md-12">
+                            <div>
+                                <label for="restaurants">Restaurant</label>
+                            </div>
+                            <div class="">
+                                <div class="btn-group" data-toggle="buttons">
+
+                                    {% for restaurant in restaurants %}
+                                        <label class="btn btn-primary {% if restaurant.id == reservation.restaurant.id %} active {% endif %} ">
+                                            <input type="radio" name="restaurant" id="option{{ restaurant.id }}"
+                                                   autocomplete="off" value="{{ restaurant.id }}"
+                                            {% if restaurant.id == reservation.restaurant.id %}
+                                                checked
+                                                {% endif %}
+                                            /> {{ restaurant.name }}
+                                        </label>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="col-md-12">
+
+                            <div class=" alert alert-danger center-block" role="alert">
+                                <div class="row">
+                                    <div class="col-xs-10">Please insert restaurant first!</div>
+                                    <div class="col-xs-2"><a class="btn btn-danger pull-right"> Insert restaurant</a></div>
+                                </div>
+
+
+                            </div></div>
+                    {% endif %}
+                </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div>
+                                <label for="restaurants">Reservation datetime</label>
+                            </div>
+                            <div class=''>
+                                <input type="text" value="{{ reservation.reservationDatetime }}" id="datetimepicker" name="reservation_datetime"
+                                       class="form-control" readonly required>
+                            </div>
+                            <script type="text/javascript">
+                                jQuery('#datetimepicker').datetimepicker({
+                                    format: 'dd.mm.yyyy hh:ii',
+                                    autoclose: true,
+                                    useCurrent:"{{ reservation.reservationDatetime }}",
+                                    startDate: "{{ startDate }}",
+                                    weekStart: 1,
+                                    language: "ee"
+
+                                });
+                            </script>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                <label for="restaurants">Duration</label>
+                            </div>
+                            <div class="">
+                                <select name="duration" id="restaurants" class="form-control" required>
+                                    <option value="0.5">30 min</option>
+                                    <option value="1">1 h</option>
+                                    <option value="1.5">1.5 h</option>
+                                    <option value="2">2. h</option>
+                                    <option value="2.5">2.5 h</option>
+                                    <option value="3">3 h</option>
+                                    <option value="3.5">3.5 h</option>
+                                    <option value="4">4. h</option>
+                                    <option value="4.5">4.5 h</option>
+                                    <option value="5">5 h</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div>
+                                <label for="restaurants">Reservation way</label>
+                            </div>
+                            <div class="">
+                                <select name="reservation_way" id="restaurants" class="form-control" required>
+
+                                    <option value="phone">Phone</option>
+                                    <option value="email">Email</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-5">
+                            <div>
+                                <label for="restaurants">Contact name</label>
+                            </div>
+                            <div class="">
+                                <input type="text" id="guests_number" name="person_name" class="form-control" value="{{ reservation.personName }}" >
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div>
+                                <label for="restaurants">Contact phone</label>
+                            </div>
+                            <div class="">
+                                <input type="tel" id="guests_number" name="person_phone" class="form-control" {{ reservation.personPhone }}>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                <label for="restaurants">Guests number</label>
+                            </div>
+                            <div class="">
+                                <input type="number" id="guests_number" name="guests_number" value="{{ reservation.guestsNumber }}"
+                                       class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div>
+                                <label for="details">Reservation details</label>
+                            </div>
+                            <div>
+                                <textarea id="details" name="details" class="form-control">{{ reservation.details }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p>
+                        <input type="hidden" name="id" value="{{ reservation.id }}"/>
+                        <input type="submit" value="Save"/> |
+                        <a href="/reservation">Back to List</a>
+
+
+                    </p>
+
+            </fieldset>
+        </form>
+    </section>
 {% endblock %}

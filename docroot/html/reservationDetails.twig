@@ -13,6 +13,20 @@
             </div>
 
         </div>
+            {% if reservation.status == "canceled" %}
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div class=" alert alert-warning center-block" role="alert">
+                            <div class="row">
+                                <div class="col-xs-10">This reservation is cancelled!</div>
+
+                            </div>
+
+
+                        </div></div>
+                </div>
+            {% endif %}
         <div class="row">
             <div class="col-md-6">
                 <table class="table table-striped table-bordered table-hover">
@@ -62,6 +76,12 @@
     </fieldset>
     <p>
         <a href="/reservation/edit/{{ reservation.id }}">Edit</a> |
+    {% if reservation.status != "canceled" %}
+        <form method="post" action="/reservation/cancel">
+            <input type="hidden" name="id" value="{{ reservation.id }}">
+            <button type="submit" class="btn btn-warning">Cancel reservation</button>
+        </form>
+        {% endif %}
         <a href="/reservation">Back to List</a>
     </p>
 </section>

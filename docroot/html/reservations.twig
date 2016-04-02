@@ -8,6 +8,68 @@
     </hgroup>
     <p>
         <a href="/reservation/create" class="btn btn-success">Create New</a>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Filter
+        </button>
+    <div class="collapse" id="collapseExample">
+        <div class="well">
+            <form>
+                <div class="row">
+
+                        <div class='col-md-2'>
+                            <div class="form-group">
+                                <div class='input-group date' id='filterDateStart'>
+                                    <input type='date' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-2'>
+                            <div class="form-group">
+                                <div class='input-group date' id='filterDateEnd'>
+                                    <input type='date' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="col-md-4 col-sm-12"><select class="form-control">
+                            <option selected>Select restaurant</option>
+                            <option>Tartu Kohvik</option>
+                            <option>Pirita kohvik</option>
+                            <option>Mustamäe kohvik</option>
+                        </select></div>
+                    <div class="col-md-2 col-sm-12"><button type="button" class="btn btn-primary">Filter</button></div>
+                    <script language="text/javascript">
+                       // jQuery(function () {
+                            jQuery('#filterDateStart').datetimepicker({
+                                format:"dd.mm.yyyy"
+                            });
+                            jQuery('#filterDateEnd').datetimepicker({
+                                useCurrent: false, //Important! See issue #1075
+                                format:"dd.mm.yyyy"
+                            });
+                            jQuery("#filterDateStart").on("dp.change", function (e) {
+                                jQuery('#filterDateEnd').data("DateTimePicker").minDate(e.date);
+                            });
+                            jQuery("#filterDateEnd").on("dp.change", function (e) {
+                                jQuery('#filterDateStart').data("DateTimePicker").maxDate(e.date);
+                            });
+                      //  });
+                    </script>
+
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+
+
     </p>
     <table class="table table-hover">
         <thead>
@@ -22,7 +84,16 @@
             <th>Actions</th>
         </thead>
         {% for reservation in reservations %}
-            <tr>
+            <tr
+                {% if reservation.status == "canceled" %}
+                    class="canceled bg-danger"
+                    {% elseif reservation.status == "created" %}
+                    class="original bg-success"
+                {% elseif reservation.status == "modified" %}
+                    class="modified bg-warning"
+
+                {% endif %}
+            >
                 <td>{{ reservation.reservationDatetime }}</td>
                 <td>{{ reservation.restaurant.name }}</td>
 
