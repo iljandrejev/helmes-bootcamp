@@ -22,6 +22,13 @@ $router->get('/restaurant/edit/{id:i}', ['Controller\Restaurant','editView']);
 $router->get('/restaurant/details/{id:i}', ['Controller\Restaurant','detailsView']);
 $router->get('/restaurant/delete/{id:i}', ['Controller\Restaurant','deleteView']);
 
+// GET: Tables
+$router->get('/table',['Controller\Table','defaultView']);
+$router->get('/table/create', ['Controller\Table','createView']);
+$router->get('/table/edit/{id:i}', ['Controller\Table','editView']);
+//$router->get('/table/details/{id:i}', ['Controller\Table','detailsView']);
+$router->get('/table/delete/{id:i}', ['Controller\Table','deleteView']);
+
 // GET: Contacts
 $router->get('/contact', ['Controller\Contact','defaultView']);
 
@@ -36,6 +43,11 @@ $router->post('/reservation/delete', ['Controller\Reservation','deleteAction']);
 $router->post('/restaurant/add', ['Controller\Restaurant','addAction']);
 $router->post('/restaurant/edit', ['Controller\Restaurant','editAction']);
 $router->post('/restaurant/delete', ['Controller\Restaurant','deleteAction']);
+
+// POST: Table
+$router->post('table/add',['Controller\Table','addAction']);
+$router->post('/table/edit', ['Controller\Table','editAction']);
+$router->post('/table/delete', ['Controller\Table','deleteAction']);
 
 $dispatcher = new Phroute\Phroute\Dispatcher($router->getData());
 $response = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));

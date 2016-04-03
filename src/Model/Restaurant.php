@@ -47,6 +47,12 @@ class Restaurant{
     private $_reservations;
 
     /**
+     * @ORM\OneToMany(targetEntity="Table", mappedBy="Restaurant")
+     */
+
+    private $_tables;
+
+    /**
      * @return int
      */
     public function getId()

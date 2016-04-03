@@ -50,10 +50,15 @@ class Reservation
         return $reservations;
     }
 
+    // This method supposed to  find all reservations witch corresponds to the condition of user needs.
+    // Yet do not understand some syntacs rules.
     public function filter($from=null, $to=null, $restaurant=null){
 
-        $reservations = $this->_repository->findBy(array('_reservationDatetime'=> new \DateTime('2016-04-11 10:30') ),array('_reservationDatetime'=>'ASC'));
-        $queryBuilder = $this->_em->createQuery(
+        $reservations = $this->_repository->findBy(array('_reservationDatetime'=> new \DateTime('2016-04-11 10:30') ),array('_reservationDatetime'=>'ASC')); // Returns line where reservation datetime is equal 2016-04-11 10:30
+
+         // SELECT * FROM reservation WHERE reservation_datetime BETWEEN '2016-04-02 AND 2016-04-22'
+
+      $queryBuilder = $this->_em->createQuery(
             'SELECT r
             FROM Model::Reservation r
             WHERE r._reservationDatetime BETWEEN "2016-04-02" AND "2016-04-22"
@@ -61,15 +66,16 @@ class Reservation
         );
         $result = $queryBuilder->getResult();
         $queryBuilder
-            ->select('r')
+            ->select('r') // Is it same as *
             ->from('Reservation','r')
             ->where('r.reservation_datetime BETWEEN :start AND :end')
-            ->setParameter('end',2016-04-21)
+            ->setParameter('end',2016-04-21) // Parameters not set
             ->setParameter('start',2016-04-02);
 
         //echo $queryBuilder->getDQL();
+
         var_dump($result);
-        exit(0);
+        
         return $queryBuilder->getQuery()->getArrayResult();
     }
 
