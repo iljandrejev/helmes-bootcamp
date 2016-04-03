@@ -27,7 +27,7 @@ $().ready(function() {
             details: "Too long"
         }
     });
-    
+
     jQuery('#datetimepicker6').datepicker({
         firstDay:1,
         dateFormat: "dd.mm.yy",
@@ -52,6 +52,11 @@ $().ready(function() {
         jQuery('#datetimepicker6').datepicker({
             maxDate: null
         });
+    });
+    jQuery('.reservationsAll').DataTable({
+        "paging":   false,
+        "ordering": false,
+        "info":     false
     });
     
 });

@@ -109,14 +109,6 @@
         {% endfor %}
     </table>
     </div>
-    <script>
-        jQuery(document).ready(function() {
-            var table = $('reservationsAll').DataTable();
 
-            // Add event listeners to the two range filtering inputs
-            $('#datetimepicker6').keyup( function() { table.draw(); } );
-            $('#datetimepicker7').keyup( function() { table.draw(); } );
-        } );
-    </script>
 </section>
 {% endblock %}
