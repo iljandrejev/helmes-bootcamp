@@ -11,7 +11,7 @@
         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
             Filter
         </button>
-    <div class="collapse" id="collapseExample">
+    <div class="collapse" id="collapseExample" >
         <div class="well">
             <form method="post" action="/reservation/filter" class="validateFilters">
                 <div class="row">
@@ -20,7 +20,7 @@
                         <div class='col-md-3'>
                             <div class="form-group">
                                 <div class='input-group date' >
-                                    <input type='text' id='datetimepicker6' name="filterFrom" class="form-control" placeholder="Filter from" />
+                                    <input type='text' id='datetimepicker6' name="filterFrom" class="form-control" value="{{ filter.filterFrom }}" placeholder="Filter from" />
                 <span class="input-group-addon filterFrom">
                     <span class="fa fa-times"></span>
                 </span>
@@ -30,17 +30,21 @@
                         <div class='col-md-3'>
                             <div class="form-group">
                                 <div class='input-group date' >
-                                    <input type='text' id='datetimepicker7' name="filterTo" class="form-control" placeholder="Filter to" />
+                                    <input type='text' id='datetimepicker7' name="filterTo" class="form-control" value="{{ filter.filterTo }}" placeholder="Filter to" />
                 <span class="input-group-addon filterTo">
                     <span class="fa fa-times"></span>
                 </span>
                                 </div>
                             </div>
                         </div>
-                    <div class="col-md-4 col-sm-12"><select class="form-control">
+                    <div class="col-md-4 col-sm-12"><select class="form-control" name="filterRestaurant">
                             <option selected value="null">Select restaurant</option>
                             {% for restaurant in restaurants %}
-                            <option value="{{ restaurant.id }}">{{ restaurant.name }}</option>
+                            <option
+                                    {% if filter.restaurant == restaurant.id %}
+                                        selected
+                                    {% endif %}
+                                    value="{{ restaurant.id }}">{{ restaurant.name }}</option>
                                 {% endfor %}
 
                         </select></div>
@@ -61,7 +65,7 @@
 
                 <div class=" alert alert-warning center-block" role="alert">
                     <div class="row">
-                        <div class="col-xs-10">This filter view!</div>
+                        <div class="col-xs-10">This filter view! {{ filter.restaurant }}</div>
 
                     </div>
 

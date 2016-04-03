@@ -79,10 +79,24 @@ class Reservation extends AbstractController
     
     public function filterView(){
         $post = $_POST;
+        $filter['filterFrom'] = $post['filterFrom'];
+        $filter['filterTo'] = $post['filterTo'];
+        if($post['filterRestaurant'] == "null"){
+            $filter['restaurant'] = null;
+        }else{
+            $filter['restaurant'] = $post['filterRestaurant'];
+        }
+
+        if(empty($filter['filterFrom']) && empty($filter['filterTo']) && empty($filter['restaurant'])){
+            return $this->defaultView();
+        }
+        $reservations = $this->_service->filter($filter);
+
+        $service = new \Service\Restaurant();
+        $restaurants = $service->findAll();
         
-        $reservations = $this->_service->filter();
         
-        $this->setModel(array('reservations'=>$reservations, 'filterView'=>'This is filterview'));
+        $this->setModel(array('reservations'=>$reservations,'restaurants'=>$restaurants,"filter" => $filter, 'filterView'=>'This is filterview'));
         return $this->display('reservations.twig');
     }
 

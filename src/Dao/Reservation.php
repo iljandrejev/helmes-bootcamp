@@ -50,33 +50,33 @@ class Reservation
         return $reservations;
     }
 
-    // This method supposed to  find all reservations witch corresponds to the condition of user needs.
-    // Yet do not understand some syntacs rules.
-    public function filter($from=null, $to=null, $restaurant=null){
 
-        $reservations = $this->_repository->findBy(array('_reservationDatetime'=> new \DateTime('2016-04-11 10:30') ),array('_reservationDatetime'=>'ASC')); // Returns line where reservation datetime is equal 2016-04-11 10:30
+    public function filter($case,$from=null, $to=null, $restaurant=null){
+      $queryBuilder = $this->_em->createQuery("SELECT r FROM Model\Reservation r WHERE " . $this->filterDQL($case,$from,$to,$restaurant));
 
-         // SELECT * FROM reservation WHERE reservation_datetime BETWEEN '2016-04-02 AND 2016-04-22'
+        return $queryBuilder->getResult();
+    }
 
-      $queryBuilder = $this->_em->createQuery(
-            'SELECT r
-            FROM Model::Reservation r
-            WHERE r._reservationDatetime BETWEEN "2016-04-02" AND "2016-04-22"
-            '
-        );
-        $result = $queryBuilder->getResult();
-        $queryBuilder
-            ->select('r') // Is it same as *
-            ->from('Reservation','r')
-            ->where('r.reservation_datetime BETWEEN :start AND :end')
-            ->setParameter('end',2016-04-21) // Parameters not set
-            ->setParameter('start',2016-04-02);
-
-        //echo $queryBuilder->getDQL();
-
-        var_dump($result);
-        
-        return $queryBuilder->getQuery()->getArrayResult();
+    private function filterDQL($case,$from=null,$to=null,$restaurant=null){
+        switch ($case){
+            case 1:
+                // $from - NOT NULL | $to - NULL | $restaurant - NULL
+                $date = new \DateTime($from);
+                return "r._reservationDatetime > '" . $date->format("Y-m-d") . "'";
+            case 2:
+                $date = new \DateTime($to);
+                return "r._reservationDatetime < '" . $date->format("Y-m-d") ."'";
+            case 3:
+                return "r._restaurant='".$restaurant ."'";
+            case 4:
+                return $this->filterDQL(1,$from) . " AND " . $this->filterDQL(3,null,null,$restaurant);
+            case 5:
+                return $this->filterDQL(2,null,$to) . " AND " . $this->filterDQL(3,null,null,$restaurant);
+            case 6:
+                return $this->filterDQL(1,$from) . " AND " . $this->filterDQL(2,null,$to);
+            case 7:
+                return $this->filterDQL(6,$from,$to) . " AND " . $this->filterDQL(3,null,null,$restaurant);
+        }
     }
 
     public function update($id, $details)

@@ -43,9 +43,29 @@ class Reservation
         return $reservation;
     }
     
-    public function filter($from=null,$to=null,$restaurant=null){
-        $reservations = $this->_dao->filter();
+    public function filter($filter){
+        $reservations = $this->_dao->filter(
+            $this->getFilterCase($filter['filterFrom'],$filter['filterTo'],$filter['restaurant']),
+            $filter['filterFrom'],$filter['filterTo'],$filter['restaurant']);
         return $reservations;
+    }
+    private function getFilterCase($from=null,$to=null,$restaurant=null){
+        if(!empty($from) and empty($to) and empty($restaurant)){
+            return 1;
+        }elseif(empty($from) and !empty($to) and empty($restaurant)){
+            return 2;
+        }elseif(empty($from) and empty($to) and !empty($restaurant)){
+            return 3;
+        }elseif(!empty($from) and empty($to) and !empty($restaurant)){
+            return 4;
+        }elseif(empty($from) and !empty($to) and !empty($restaurant)){
+            return 5;
+        }if(!empty($from) and !empty($to) and empty($restaurant)){
+            return 6;
+        }elseif(!empty($from) and !empty($to) and !empty($restaurant)){
+            return 7;
+        }
+            
     }
 
     public function update($post)
