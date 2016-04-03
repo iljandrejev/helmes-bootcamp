@@ -284,6 +284,7 @@ class Reservation
         }
         $this->setDetails($details['details']);
         $this->setDate(new \DateTime(date('Y-m-d H:i:s')));
+        $this->setStatus('created');
     }
     
     public function updateReservation($details){

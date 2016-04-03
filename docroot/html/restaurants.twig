@@ -7,21 +7,65 @@
             <h2>List of restaourants</h2>
         </hgroup>
         <p>
-            <a href="/restaurant/create" class="btn btn-success">Create New</a>
+            <button class="btn btn-success" data-toggle="modal" data-target="#myModal">Create New</button>
         </p>
         <table class="table table-hover">
             {% for restaurant in restaurants %}
-                <tr>
+                <tr class="restaurant{{ restaurant.id }}">
                     <td>{{ restaurant.name }}</td>
                     <td> {{ restaurant.aadress }}</td>
                     <td>
-                        <a href="/restaurant/edit/{{ restaurant.id }}">Edit</a> |
-                        <a href="/restaurant/details/{{ restaurant.id }}">Details</a> |
-                        <a href="/restaurant/delete/{{ restaurant.id }}">Delete</a>
+                        <a  class="btn btn-warning btn-xs" href="/restaurant/edit/{{ restaurant.id }}">Edit</a> |
+                        <a class="btn btn-default btn-xs" href="/restaurant/details/{{ restaurant.id }}">Details</a> |
+                        <button class="btn btn-danger btn-xs" onclick="del({{ restaurant.id }},'restaurant')">Delete</button>
                     </td>
                 </tr>
             {% endfor %}
         </table>
 {{ element }}
     </section>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content"><form method="post" action="/restaurant/add/" class="registrationForm">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add new restaurant</h4>
+                </div>
+                <div class="modal-body">
+
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div>
+                                        <label for="restaurants">Restaurant name</label>
+                                    </div>
+                                    <div class="">
+                                        <input name="restaurant_name" class="form-control" placeholder="Insert restaurant name" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div>
+                                        <label for="restaurants">Aadress</label>
+                                    </div>
+                                    <div class=''>
+                                        <input type="text" id="datetimepicker" name="aadress" class="form-control" placeholder="Insert restaurant aadress">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </fieldset>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Create</button>
+                </div></form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

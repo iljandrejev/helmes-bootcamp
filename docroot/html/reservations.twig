@@ -7,7 +7,7 @@
         <h2>List of reservations</h2>
     </hgroup>
     <p>
-        <a href="/reservation/create" class="btn btn-success">Create New</a>
+        <button data-toggle="modal" data-target="#myModal" class="btn btn-success">Create New</button>
         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
             Filter
         </button>
@@ -83,27 +83,29 @@
             <th>Actions</th>
         </thead>
         {% for reservation in reservations %}
-            <tr
+            <tr class="
                 {% if reservation.status == "canceled" %}
-                    class="canceled bg-danger"
+                    canceled bg-danger
                     {% elseif reservation.status == "created" %}
-                    class="original bg-success"
+                    original bg-success
                 {% elseif reservation.status == "modified" %}
-                    class="modified bg-warning"
+                    modified bg-warning
 
                 {% endif %}
+                reservation{{ reservation.id }}
+                "
             >
                 <td>{{ reservation.reservationDatetime }}</td>
                 <td>{{ reservation.restaurant.name }}</td>
 
-                <td>{{ reservation.personName }}</td>
+                <td><strong>{{ reservation.personName }}</strong></td>
                 <td>{{ reservation.duration }} h</td>
                 <td>{{ reservation.guestsNumber }}</td>
 
                 <td>
                     <a href="/reservation/edit/{{ reservation.id }}" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i>&nbsp; Edit</a> |
                     <a href="/reservation/details/{{ reservation.id }}" class="btn btn-default btn-xs"><i class="fa fa-file-text-o"></i>&nbsp; Details</a> |
-                    <a href="/reservation/delete/{{ reservation.id }}" class="btn btn-danger btn-xs"> <i class="fa fa-trash-o"></i>&nbsp; Delete</a>
+                    <button onclick="del({{ reservation.id }},'reservation')" class="btn btn-danger btn-xs"> <i class="fa fa-trash-o"></i>&nbsp; Delete</button>
                 </td>
             </tr>
         {% endfor %}
@@ -111,4 +113,163 @@
     </div>
 
 </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form method="post" action="/reservation/add/" class="reservationForm">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+
+                        <fieldset>
+                            <div class="row">
+                                {% if restaurants != null %}
+                                    <div class="col-md-12">
+                                        <div>
+                                            <label for="restaurants">Restaurant</label>
+                                        </div>
+                                        <div class="">
+                                            <div class="btn-group" data-toggle="buttons">
+
+                                                {% for restaurant in restaurants %}
+                                                    <label class="btn btn-primary">
+                                                        <input type="radio" name="restaurant" id="option{{ restaurant.id }}"
+                                                               autocomplete="off" value="{{ restaurant.id }}"/> {{ restaurant.name }}
+                                                    </label>
+                                                {% endfor %}
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="col-md-12">
+
+                                        <div class=" alert alert-danger center-block" role="alert">
+                                            <div class="row">
+                                                <div class="col-xs-10">Please insert restaurant first!</div>
+                                                <div class="col-xs-2"><a class="btn btn-danger pull-right"> Insert restaurant</a></div>
+                                            </div>
+
+
+                                        </div></div>
+                                {% endif %}
+                            </div>
+                            {% if restaurants != null %}
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div>
+                                            <label for="restaurants">Reservation datetime</label>
+                                        </div>
+                                        <div class=''>
+                                            <input type="datetime" value="{{ startDate }}" id="datetimepicker" name="reservation_datetime"
+                                                   class="form-control" readonly required>
+                                        </div>
+                                        <script type="text/javascript">
+                                            jQuery('#datetimepicker').datetimepicker({
+                                                format: 'dd.mm.yyyy hh:ii',
+                                                autoclose: true,
+                                                startDate: "{{ startDate }}",
+                                                weekStart: 1,
+                                                language: "ee"
+
+                                            });
+                                        </script>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div>
+                                            <label for="restaurants">Duration</label>
+                                        </div>
+                                        <div class="">
+                                            <select name="duration" id="restaurants" class="form-control" required>
+                                                <option value="0.5">30 min</option>
+                                                <option value="1">1 h</option>
+                                                <option value="1.5">1.5 h</option>
+                                                <option value="2">2. h</option>
+                                                <option value="2.5">2.5 h</option>
+                                                <option value="3">3 h</option>
+                                                <option value="3.5">3.5 h</option>
+                                                <option value="4">4. h</option>
+                                                <option value="4.5">4.5 h</option>
+                                                <option value="5">5 h</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div>
+                                            <label for="restaurants">Reservation way</label>
+                                        </div>
+                                        <div class="">
+                                            <select name="reservation_way" id="restaurants" class="form-control" required>
+
+                                                <option value="phone">Phone</option>
+                                                <option value="email">Email</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-5">
+                                        <div>
+                                            <label for="restaurants">Contact name</label>
+                                        </div>
+                                        <div class="">
+                                            <input type="text" id="guests_number" name="person_name" class="form-control" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div>
+                                            <label for="restaurants">Contact phone</label>
+                                        </div>
+                                        <div class="">
+                                            <input type="tel" id="guests_number" name="person_phone" class="form-control" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div>
+                                            <label for="restaurants">Guests number</label>
+                                        </div>
+                                        <div class="">
+                                            <input type="number" id="guests_number" name="guests_number" value="1"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div>
+                                            <label for="details">Reservation details</label>
+                                        </div>
+                                        <div>
+                                            <textarea id="details" name="details" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            {% endif %}
+                        </fieldset>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

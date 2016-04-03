@@ -17,13 +17,13 @@
                 <th></th>
             </thead>
             {% for table in tables %}
-                <tr>
+                <tr class="table{{ table.id }}">
                     <td>{{ table.restaurant.name }}</td>
                     <td>{{ table.tableNumber }}</td>
                     <td> {{ table.maxSeats }}</td>
                     <td>
                         <a class="btn btn-warning btn-xs"  href="/table/edit/{{ table.id }}"><i class="fa fa-pencil"></i>&nbsp;Edit</a> |
-                        <a class="btn btn-danger btn-xs" href="/table/delete/{{ table.id }}"><i class="fa fa-trash-o"></i>&nbsp;Delete</a>
+                        <button class="btn btn-danger btn-xs" onclick="del({{ table.id }},'table')"><i class="fa fa-trash-o"></i>&nbsp;Delete</button>
                     </td>
                 </tr>
             {% endfor %}

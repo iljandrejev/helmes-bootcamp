@@ -1,7 +1,7 @@
 /**
  * Created by markus on 9.03.16.
  */
-$().ready(function() {
+$().ready(function () {
     // validate registration form
     $(".reservationForm").validate({
         rules: {
@@ -29,34 +29,55 @@ $().ready(function() {
     });
 
     jQuery('#datetimepicker6').datepicker({
-        firstDay:1,
+        firstDay: 1,
         dateFormat: "dd.mm.yy",
-        onClose: function( selectedDate ) {
-            jQuery( "#datetimepicker7" ).datepicker( "option", "minDate", selectedDate );
+        onClose: function (selectedDate) {
+            jQuery("#datetimepicker7").datepicker("option", "minDate", selectedDate);
         }
     });
     jQuery('#datetimepicker7').datepicker({
-        firstDay:1,
+        firstDay: 1,
         dateFormat: "dd.mm.yy",
-        onClose: function( selectedDate ) {
-            jQuery( "#datetimepicker6" ).datepicker( "option", "maxDate", selectedDate );}
+        onClose: function (selectedDate) {
+            jQuery("#datetimepicker6").datepicker("option", "maxDate", selectedDate);
+        }
     });
-    jQuery('.input-group-addon.filterFrom').click(function(){
+    jQuery('.input-group-addon.filterFrom').click(function () {
         jQuery('#datetimepicker6').val(null);
         jQuery('#datetimepicker7').datepicker({
             minDate: null
         });
     });
-    jQuery('.input-group-addon.filterTo').click(function(){
+    jQuery('.input-group-addon.filterTo').click(function () {
         jQuery('#datetimepicker7').val(null);
         jQuery('#datetimepicker6').datepicker({
             maxDate: null
         });
     });
     jQuery('.reservationsAll').DataTable({
-        "paging":   false,
+        "paging": false,
         "ordering": false,
-        "info":     false
+        "info": false
     });
-    
+
+
+
 });
+function del(id, element) {
+
+    swal({
+        title: "Are you sure?",
+        text: "You are deleting " + element,
+        type: "warning",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true,
+    }, function () {
+        $.post("/"+ element + "/delete", {id: id}, function (result) {
+            setTimeout(function () {
+                swal("This "+element+" deleted!",null,'success');
+                $('.' + element +id).remove();
+            }, 2000);});
+    });
+
+}
