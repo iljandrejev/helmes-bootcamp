@@ -74,15 +74,19 @@
 
 
     </fieldset>
-    <p>
-        <a href="/reservation/edit/{{ reservation.id }}">Edit</a> |
+    <div class="row">
+        <div class="col-md-1">
+        <a class="btn btn-warning" href="/reservation/edit/{{ reservation.id }}"><i class="fa fa-pencil"></i> Edit</a> </div>
     {% if reservation.status != "canceled" %}
+        <div class="col-md-2">
         <form method="post" action="/reservation/cancel">
             <input type="hidden" name="id" value="{{ reservation.id }}">
-            <button type="submit" class="btn btn-warning">Cancel reservation</button>
-        </form>
+            <button type="submit" class="btn btn-danger">Cancel reservation</button>
+        </form></div>
         {% endif %}
-        <a href="/reservation">Back to List</a>
-    </p>
+        <div class="col-md-1">
+        <a class="btn btn-default" href="/reservation">Back to List</a>
+            </div>
+    </div>
 </section>
 {% endblock %}

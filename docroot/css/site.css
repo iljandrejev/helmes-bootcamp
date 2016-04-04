@@ -467,7 +467,7 @@ td button {
 }
 
 form .row {
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
 }
 
 /* info and errors */
@@ -655,6 +655,12 @@ td a.ui-state-default.ui-state-active {
 
     border: 2px solid orange;
 
+}
+.row.filter {
+    margin-top: 15px;
+}
+div#DataTables_Table_0_filter {
+    display: none;
 }
 
 

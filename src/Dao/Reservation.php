@@ -52,7 +52,8 @@ class Reservation
 
 
     public function filter($case,$from=null, $to=null, $restaurant=null){
-      $queryBuilder = $this->_em->createQuery("SELECT r FROM Model\Reservation r WHERE " . $this->filterDQL($case,$from,$to,$restaurant));
+      $queryBuilder = $this->_em
+          ->createQuery("SELECT r FROM Model\Reservation r WHERE " . $this->filterDQL($case,$from,$to,$restaurant) . " ORDER BY r._reservationDatetime ASC ");
 
         return $queryBuilder->getResult();
     }

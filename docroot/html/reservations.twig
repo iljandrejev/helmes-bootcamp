@@ -6,15 +6,43 @@
         <h1>Reservations</h1>
         <h2>List of reservations</h2>
     </hgroup>
-    <p>
+    {% if errors != null %}
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class=" alert alert-danger center-block" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="row">
+                        <div class="col-xs-10">{{ errors.message }}</div>
+
+                    </div>
+
+
+
+                </div></div>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-8">
         <button data-toggle="modal" data-target="#myModal" class="btn btn-success">Create New</button>
         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
             Filter
         </button>
-    <div class="collapse" id="collapseExample" >
-        <div class="well">
-            <form method="post" action="/reservation/filter" class="validateFilters">
-                <div class="row">
+
+    </div>
+        <div class="col-md-4">
+            <input class="form-control search" placeholder="Search" >
+        </div>
+
+    </div>
+    <div class="row filter">
+        <div class="col-md-12">
+        <div class="collapse" id="collapseExample" >
+            <div class="well">
+                <form method="post" action="/reservation/filter" class="validateFilters">
+                    <div class="row">
 
 
                         <div class='col-md-3'>
@@ -37,42 +65,27 @@
                                 </div>
                             </div>
                         </div>
-                    <div class="col-md-4 col-sm-12"><select class="form-control" name="filterRestaurant">
-                            <option selected value="null">Select restaurant</option>
-                            {% for restaurant in restaurants %}
-                            <option
-                                    {% if filter.restaurant == restaurant.id %}
-                                        selected
-                                    {% endif %}
-                                    value="{{ restaurant.id }}">{{ restaurant.name }}</option>
+                        <div class="col-md-4 col-sm-12"><select class="form-control" name="filterRestaurant">
+                                <option selected value="null">Select restaurant</option>
+                                {% for restaurant in restaurants %}
+                                    <option
+                                            {% if filter.restaurant == restaurant.id %}
+                                                selected
+                                            {% endif %}
+                                            value="{{ restaurant.id }}">{{ restaurant.name }}</option>
                                 {% endfor %}
 
-                        </select></div>
-                    <div class="col-md-2 col-sm-12"><button type="submit" class="btn btn-primary btn-block">Filter</button></div>
-
-                </div>
-
-
-            </form>
-        </div>
-    </div>
-
-
-    </p>
-    {% if filterView != null %}
-        <div class="row">
-            <div class="col-md-6">
-
-                <div class=" alert alert-warning center-block" role="alert">
-                    <div class="row">
-                        <div class="col-xs-10">This filter view! {{ filter.restaurant }}</div>
+                            </select></div>
+                        <div class="col-md-2 col-sm-12"><button type="submit" class="btn btn-primary btn-block">Filter</button></div>
 
                     </div>
 
 
-                </div></div>
-        </div>
-        {% endif %}
+                </form>
+            </div>
+        </div></div>
+    </div>
+
     <div class="table-responsive">
     <table class="table table-hover reservationsAll">
         <thead>
@@ -125,7 +138,7 @@
                 <form method="post" action="/reservation/add/" class="reservationForm">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <h4 class="modal-title" id="myModalLabel">New reservation</h4>
                 </div>
                 <div class="modal-body">
 
@@ -170,7 +183,7 @@
                                             <label for="restaurants">Reservation datetime</label>
                                         </div>
                                         <div class=''>
-                                            <input type="datetime" value="{{ startDate }}" id="datetimepicker" name="reservation_datetime"
+                                            <input type="datetime" value="{{ startDate }}" id="datetimepicker"  name="reservation_datetime"
                                                    class="form-control" readonly required>
                                         </div>
                                         <script type="text/javascript">

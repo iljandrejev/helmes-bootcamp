@@ -27,7 +27,7 @@ class Restaurant
     public function getRestaurant($id)
     {
         $restaurant = $this->_repository->findOneBy(array('_id' => $id));
-        $this->_logger->info('Restaurant loaded successfully, Restaurant details=' . $restaurant->getName());
+        $this->_logger->info('Restaurant loaded successfully, Restaurant details=' );
         return $restaurant;
     }
 
@@ -35,7 +35,7 @@ class Restaurant
     {
         $restaurants = $this->_repository->findAll();
         foreach ($restaurants as $restaurant) {
-            $this->_logger->info('Restaurant::' . $restaurant->getName());
+            $this->_logger->info('Restaurant::' );
         }
         return $restaurants;
     }
@@ -45,14 +45,14 @@ class Restaurant
         $restaurant = $this->getRestaurant($id);
         $restaurant->addRestaurant($details);
         $this->_em->persist($restaurant);
-        $this->_logger->info('Restaurant record updated successfully, Restaurant details=' . $restaurant->getName());
+        $this->_logger->info('Restaurant record updated successfully, Restaurant details=' );
     }
 
     public function delete($id)
     {
         $restaurant = $this->getRestaurant($id);
         $this->_em->remove($restaurant);
-        $this->_logger->info('Restaurant deleted successfully, Restaurant details=' . $restaurant->getName());
+        $this->_logger->info('Restaurant deleted successfully, Restaurant details=' );
         $this->_em->flush();
     }
 

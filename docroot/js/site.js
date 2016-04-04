@@ -28,6 +28,14 @@ $().ready(function () {
         }
     });
 
+    $('.tableForm').validate({
+        rules:{
+            restaurant:"required",
+            table_number: "required",
+            max_seats_number: "required"
+        }
+    })
+
     jQuery('#datetimepicker6').datepicker({
         firstDay: 1,
         dateFormat: "dd.mm.yy",
@@ -57,7 +65,14 @@ $().ready(function () {
     jQuery('.reservationsAll').DataTable({
         "paging": false,
         "ordering": false,
-        "info": false
+        "info": false,
+        "search": false
+    });
+
+    jQuery('input.search').on('keyup click',function(){
+       jQuery('.reservationsAll').DataTable().search(
+           jQuery('.search').val()
+       ).draw();
     });
 
 

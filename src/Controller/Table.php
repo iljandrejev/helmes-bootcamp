@@ -49,18 +49,7 @@ class Table extends AbstractController{
         $this->setModel(array('table' => $table));
         return $this->display('editTable.twig');
     }
-
-    public function deleteView($id)
-    {
-        $table = $this->_service->findOneById($id);
-        $this->setModel(array('table' => $table));
-        return $this->display('deleteTable.twig');
-    }
-
-    public function createView()
-    {
-        return $this->display('newTable.twig');
-    }
+    
 
     public function editAction()
     {

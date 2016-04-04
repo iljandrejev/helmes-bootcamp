@@ -49,18 +49,6 @@ class Restaurant extends AbstractController
         return $this->display('editRestaurant.twig');
     }
 
-    public function deleteView($id)
-    {
-        $restaurant = $this->_service->findOneById($id);
-        $this->setModel(array('restaurant' => $restaurant));
-        return $this->display('deleteRestaurant.twig');
-    }
-
-    public function createView()
-    {
-       return $this->display('newRestaurant.twig');
-    }
-
     public function editAction()
     {
         $post = $_POST;

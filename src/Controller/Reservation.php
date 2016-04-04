@@ -15,6 +15,8 @@ class Reservation extends AbstractController
      */
     private $_service;
 
+    private $_validationError;
+
     public function __construct()
     {
         parent::__construct();
@@ -26,6 +28,24 @@ class Reservation extends AbstractController
         $this->_service = $service;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getValidationError()
+    {
+        return $this->_validationError;
+    }
+
+    /**
+     * @param mixed $validationError
+     */
+    public function setValidationError($validationError)
+    {
+        $this->_validationError = $validationError;
+    }
+
+
+
     public function defaultView()
     {
         $reservations = $this->_service->findAllOrderDate();
@@ -33,7 +53,10 @@ class Reservation extends AbstractController
         $service = new \Service\Restaurant();
         $restaurants = $service->findAll();
 
-        $this->setModel(array('reservations' => $reservations,"restaurants"=>$restaurants));
+        $startDate = new \DateTime(date('Y-m-d H:i'));
+        $startDate->setTimestamp($startDate->getTimestamp() + 3600);
+
+        $this->setModel(array('reservations' => $reservations,"restaurants"=>$restaurants , 'startDate'=>$startDate->format('d.m.Y H:i'),'errors' => $this->getValidationError()));
         return $this->display('reservations.twig');
     }
 
@@ -58,27 +81,11 @@ class Reservation extends AbstractController
         return $this->display('editReservation.twig');
     }
 
-    public function deleteView($id)
-    {
-        $reservation = $this->_service->findOneById($id);
-        $this->setModel(array('reservation' => $reservation));
-        return $this->display('deleteReservation.twig');
-    }
-
-    public function createView()
-    {
-        $date = new \DateTime(date('Y-m-d H:m'));
-        $date->setTimestamp($date->getTimestamp() + 3600);
-        
-        $service = new \Service\Restaurant();
-        $restaurants = $service->findAll();
-
-        $this->setModel(array('startDate' => $date->format("d.m.Y H:i"), "restaurants"=>$restaurants));
-        return $this->display('newReservation.twig');
-    }
+  
     
     public function filterView(){
         $post = $_POST;
+
         $filter['filterFrom'] = $post['filterFrom'];
         $filter['filterTo'] = $post['filterTo'];
         if($post['filterRestaurant'] == "null"){
@@ -94,7 +101,6 @@ class Reservation extends AbstractController
 
         $service = new \Service\Restaurant();
         $restaurants = $service->findAll();
-        
         
         $this->setModel(array('reservations'=>$reservations,'restaurants'=>$restaurants,"filter" => $filter, 'filterView'=>'This is filterview'));
         return $this->display('reservations.twig');
@@ -124,6 +130,15 @@ class Reservation extends AbstractController
     public function addAction()
     {
         $post = $_POST;
+
+        $reservationStart = new \DateTime($post['reservation_datetime']);
+        $reservationRule = new \DateTime(date('d.m.Y H:i'));
+        $reservationRule->setTimestamp($reservationRule->getTimestamp() + 3600);
+        if($reservationStart->getTimestamp() < $reservationRule->getTimestamp()){
+            $this->_validationError = array('message'=>"Broneerimisi ei võeta vastu kui broneerimisaeg on lähemal kui üks tund");
+            return $this->defaultView();
+        }
+
         $reservation = $this->_service->add($post);
         return $this->detailsView($reservation->getId());
     }
